@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather Widget</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    
+    <div class="container">
+        <!-- <div class="h3">Weather Widget</div>
+        <div id="content"></div> -->
+
+        <div class="row">
+            <div class="col-lg-12 mb-4 mt-4">
+                <h3 class="display-4 text-center mb-5">Uulan Ba?</h3>
+                <!-- <p class="display-1 text-center">YES</p> -->
+                <!-- <p class="display-5 text-center">Mainit mamaya init nanaman nyan.</p> -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 offset-md-3" id="content">
+            </div>
+        </div>
+    </div>
+    
+    
+    <script>
+        let output = '';
+        
+        let testCors = function(data){
+            let datenow = new Date();
+            let sunrise = new Date(data.sys.sunrise);
+            
+
+            console.log(sunrise);
+            console.log(data);
+            output += `
+                        <div class="card main-widget">                            
+                            <div class="card-body">
+                                <p class='d-flex justify-content-between'>
+                                    <span class='display-4'><strong>${data.name}</strong> - ${data.sys.country}</span>
+                                </p>
+                                <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png"/>
+                                <span>${data.weather[0].main}</span>
+                                <table class='table'>
+                                    <th colspan=2 class='text-center'>Details</th>
+                                    <tr>
+                                        <td>Temperature: ${data.main.temp}</td>    
+                                        <td>Humidity: ${data.main.humidity}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan=2>Pressure: ${data.main.pressure} si.</td>    
+                                    </tr>
+                                    <tr>
+                                        <td>Minimum Temp: ${data.main.temp_min}</td>
+                                        <td>Max. Temp: ${data.main.temp_max}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sunrise: ${sunrise.getHours()}:${sunrise.getMinutes()}</td>
+                                        <td>Sunset: ${data.sys.sunset}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+            
+            document.getElementById('content').innerHTML = output;
+        }
+        //data.weather[0].icon
+          
+    </script>
+
+    <script src="http://api.openweathermap.org/data/2.5/weather?q=Manila&appid=169f803a8d0abf93031bbadf4a7ca418&callback=testCors"></script>
+</body>
+</html>
