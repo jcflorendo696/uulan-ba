@@ -27,18 +27,17 @@
             </div>
         </div>
     </div>
-    
-    
+
     <script>
         let output = '';
         
         let testCors = function(data){
-            let datenow = new Date();
             let sunrise = new Date(data.sys.sunrise);
-            
+            let kelvin = 0;
 
             console.log(sunrise);
             console.log(data);
+
             output += `
                         <div class="card main-widget">                            
                             <div class="card-body">
@@ -50,15 +49,15 @@
                                 <table class='table'>
                                     <th colspan=2 class='text-center'>Details</th>
                                     <tr>
-                                        <td>Temperature: ${data.main.temp}</td>    
+                                        <td>Temperature: ${kelvinToCelsius(data.main.temp)}°C</td>    
                                         <td>Humidity: ${data.main.humidity}</td>
                                     </tr>
                                     <tr>
                                         <td colspan=2>Pressure: ${data.main.pressure} si.</td>    
                                     </tr>
                                     <tr>
-                                        <td>Minimum Temp: ${data.main.temp_min}</td>
-                                        <td>Max. Temp: ${data.main.temp_max}</td>
+                                        <td>Minimum Temp: ${kelvinToCelsius(data.main.temp_min)}°C</td>
+                                        <td>Max. Temp: ${kelvinToCelsius(data.main.temp_max)}°C</td>
                                     </tr>
                                     <tr>
                                         <td>Sunrise: ${sunrise.getHours()}:${sunrise.getMinutes()}</td>
@@ -71,7 +70,11 @@
             
             document.getElementById('content').innerHTML = output;
         }
-        //data.weather[0].icon
+        
+
+        function kelvinToCelsius(kelvin){
+            return kelvin > 0 ?  (kelvin - 273.15).toFixed(2) : 0;
+        }
           
     </script>
 
